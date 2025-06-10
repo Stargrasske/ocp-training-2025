@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: word-picker
+  namespace: word-picker # Namespace for the deployment > Can only be used in this namespace
+  labels: 
+  # Labels are used to organize and select resources
+    app: word-picker
+spec:
+  replicas: 1 # Number of replicas for the deployment
+  selector:
+    matchLabels:
+      app: word-picker
+  template:
+    metadata:
+      labels:
+        app: word-picker
+    spec:
+      containers:
+        - name: word-picker
+          image: Stargrasske/word-picker:v2025.2 # Image for the container
+          ports:
+            - containerPort: 5000 # Port on which the container listens
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"

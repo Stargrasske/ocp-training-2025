@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: word-picker-options
+  labels:
+    app: word-picker
+data:
+  custom-options.txt:
+    first_word
+    second_word
+    third_word
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: word-picker
+  namespace: word-picker # Namespace for the deployment > Can only be used in this namespace
+  labels: 
+    app: word-picker
+spec:
+  replicas: 1 # Number of replicas for the deployment
+  selector:
+    matchLabels:
+      app: word-picker
+  template:
+    metadata:
+      labels:
+        app: word-picker
+    spec:
+      containers:
+        - name: word-picker
+          image: Stargrasske/word-picker:v2025.2 # Image for the container
+          imagePullPolicy: Always # Policy for pulling the image -> Always pull the latest image (Development!)
+          # For production, consider using IfNotPresent or Never
+          ports:
+            - containerPort: 5000 # Port on which the container listens
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          volumeMounts:
+            - name: options-config-map
+              mountPath: /code/config
+          environment:
+            - name: WORD_PICKER_OPTIONS_FILE
+              value: /code/config/custom-options.txt # Environment variable to specify the options file
+      volumes:
+        - name: options-config-map
+          # Volume to mount the ConfigMap
+          configMap:
+            name: word-picker-options

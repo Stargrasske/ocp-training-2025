@@ -1,0 +1,23 @@
+# Ignore Apple-specific files
+# Ignore macOS system files
+.DS_Store
+.AppleDouble
+# Ignore macOS Finder metadata files
+.FinderInfo
+# Ignore macOS resource fork files
+._*
+# Ignore macOS icon files
+.Icon?
+# Ignore macOS Trash files
+.Trashes
+# Ignore macOS Spotlight index files
+.Spotlight-V100
+# Ignore macOS Time Machine backups
+.TemporaryItems
+# Ignore macOS volume settings
+.VolumeIcon.icns
+# Ignore macOS system logs
+.TemporaryItems
+# Ignore macOS system caches
+.CFUserTextEncoding
+# Ignore macOS system preferences               
