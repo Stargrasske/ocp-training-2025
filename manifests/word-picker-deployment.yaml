@@ -19,6 +19,8 @@ spec:
       containers:
         - name: word-picker
           image: Stargrasske/word-picker:v2025.2 # Image for the container
+          imagePullPolicy: Always # Policy for pulling the image -> Always pull the latest image (Development!)
+          # For production, consider using IfNotPresent or Never
           ports:
             - containerPort: 5000 # Port on which the container listens
           resources:
