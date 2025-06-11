@@ -1,0 +1,14 @@
+apiVersion: image.openshift.io/v1
+kind: ImageStream
+metadata:
+  name: word-picker-custom
+spec:
+  tags:
+  - name: latest
+    from:
+      kind: DockerImage
+      name: docker.io/tinmancoding/word-picker:latest
+    importPolicy:
+      scheduled: true
+    referencePolicy:
+      type: Local
